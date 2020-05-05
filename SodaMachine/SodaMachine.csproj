@@ -45,7 +45,6 @@
   <ItemGroup>
     <Compile Include="Can.cs" />
     <Compile Include="CashBox.cs" />
-    <Compile Include="Coin.cs" />
     <Compile Include="Dime.cs" />
     <Compile Include="GrapeSoda.cs" />
     <Compile Include="Inventory.cs" />
@@ -56,6 +55,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Quarter.cs" />
+    <Compile Include="RestStop.cs" />
     <Compile Include="SodaMachine.cs" />
   </ItemGroup>
   <ItemGroup>

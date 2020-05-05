@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 
 namespace SodaMachine
 {
-    class CashBox
+    public class CashBox
     {
         //member variables
         public List<Quarter> quarters;
         public List<Dime> dimes;
         public List<Nickel> nickels;
         public List<Penny> pennies;
+        
         //constructor
         public CashBox()
         {
@@ -20,6 +21,7 @@ namespace SodaMachine
             dimes = new List<Dime>();
             nickels = new List<Nickel>();
             pennies = new List<Penny>();
+            
 
         }
         //member methods

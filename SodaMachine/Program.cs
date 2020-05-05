@@ -10,7 +10,9 @@ namespace SodaMachine
     {
         static void Main(string[] args)
         {
-            
+            RestStop restStop = new RestStop();
+            restStop.RunGame();
+
         }
     }
 }

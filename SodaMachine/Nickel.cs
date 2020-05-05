@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace SodaMachine
 {
-    class Nickel : Coin
+    public class Nickel
     {
         //member variables
-
+        public double worth;
         //constructor
         public Nickel()
         {
-            worth = .05;
+            this.worth = .05;
         }
         //methods
     }
