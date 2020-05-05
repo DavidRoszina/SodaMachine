@@ -12,6 +12,7 @@ namespace SodaMachine
         public List<GrapeSoda> grapes;
         public List<OrangeSoda> oranges;
         public List<LemonSoda> lemons;
+        public int index;
         //constructor
         public Inventory()
         {
@@ -44,17 +45,41 @@ namespace SodaMachine
                 lemons.Add(lemon);
             }
         }
-        public void RemoveGrapeFromInventory(int numberOfGrapes)
+        public void RemoveGrapeFromInventory()
         {
             if (grapes.Count > 0)
             {
-                grapes.Count = -1;
+                GrapeSoda grape = new GrapeSoda();
+                grapes.Remove(grape);
             }
             else
             {
-                Console.WriteLine("No Grape Soda Left.");   
+                Console.WriteLine("No Grape Soda Left.");
             }
-
+        }
+        public void RemoveOrangeFromInventory()
+        {
+            if (oranges.Count > 0)
+            {
+                OrangeSoda orange = new OrangeSoda();
+                oranges.Remove(orange);
+            }
+            else
+            {
+                Console.WriteLine("No Orange Soda Left.");
+            }
+        }
+        public void RemoveLemonFromInventory()
+        {
+            if (lemons.Count > 0)
+            {
+                LemonSoda lemon = new LemonSoda();
+                lemons.Remove(lemon);
+            }
+            else
+            {
+                Console.WriteLine("No Grape Soda Left.");
+            }
         }
     }
 }

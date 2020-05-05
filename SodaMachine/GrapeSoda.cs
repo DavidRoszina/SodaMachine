@@ -9,7 +9,7 @@ namespace SodaMachine
     public class GrapeSoda : Can
     {
         //member variables
-        
+        public double price;
         //constructor
         public GrapeSoda()
         {

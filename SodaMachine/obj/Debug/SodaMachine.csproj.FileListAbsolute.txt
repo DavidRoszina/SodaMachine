@@ -1,2 +1,7 @@
 C:\Users\david\Desktop\devCodeCamp\Projects\SodaMachine\SodaMachine\SodaMachine\obj\Debug\SodaMachine.csprojAssemblyReference.cache
 C:\Users\david\Desktop\devCodeCamp\Projects\SodaMachine\SodaMachine\SodaMachine\obj\Debug\SodaMachine.csproj.CoreCompileInputs.cache
+C:\Users\david\Desktop\devCodeCamp\Projects\SodaMachine\SodaMachine\SodaMachine\bin\Debug\SodaMachine.exe.config
+C:\Users\david\Desktop\devCodeCamp\Projects\SodaMachine\SodaMachine\SodaMachine\bin\Debug\SodaMachine.exe
+C:\Users\david\Desktop\devCodeCamp\Projects\SodaMachine\SodaMachine\SodaMachine\bin\Debug\SodaMachine.pdb
+C:\Users\david\Desktop\devCodeCamp\Projects\SodaMachine\SodaMachine\SodaMachine\obj\Debug\SodaMachine.exe
+C:\Users\david\Desktop\devCodeCamp\Projects\SodaMachine\SodaMachine\SodaMachine\obj\Debug\SodaMachine.pdb

@@ -13,7 +13,7 @@ namespace SodaMachine
         //constructor
         public RestStop()
         {
-            SodaMachine machine = new SodaMachine();
+            machine = new SodaMachine();
         }
         //methods
         public void RunGame()
@@ -22,6 +22,7 @@ namespace SodaMachine
             Console.WriteLine("Grape - $.60, Orange - $.35, Lemon - $.06");
             Console.WriteLine("Please enter your money and then make a selection");
             machine.EnterCoins();
+            machine.DispenseSoda();
         }
     }
 }

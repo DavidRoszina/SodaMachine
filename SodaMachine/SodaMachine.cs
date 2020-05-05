@@ -11,20 +11,16 @@ namespace SodaMachine
     {
         //member variables
         public double enteredAmount;
-        public double change;
-        public string enteredCoin;
-        public string enteredFlavor;
         public Inventory inventory;
         public CashBox cashbox;
-        private int index;
         //constructor
         public SodaMachine()
         {
-            Inventory inventory = new Inventory();
+            inventory = new Inventory();
             inventory.AddGrapeToInventory(20);
             inventory.AddOrangeToInventory(20);
             inventory.AddLemonToInventory(20);
-            CashBox cashbox = new CashBox();
+            cashbox = new CashBox();
             cashbox.AddQuarterToCashBox(20);
             cashbox.AddDimeToCashBox(10);
             cashbox.AddNickelToCashBox(20);
@@ -33,6 +29,7 @@ namespace SodaMachine
             
         }
         //methods
+        
         public void EnterCoins()
         {
             Console.WriteLine("Enter a quarter, dime, nickel, penny or done:\n");
@@ -73,7 +70,10 @@ namespace SodaMachine
                 {
                     Console.WriteLine("Grape Soda Dispensed");
                     inventory.grapes.RemoveAt(0);
-                    inventory.grapes[index] = inventory.grapes[index + 1];
+                    for (int i = 0; i < inventory.grapes.Count; i++)
+                    {
+                        inventory.grapes[i] = inventory.grapes[i + 1];
+                    }
 
                 }
                 else if (enteredAmount < .60)
@@ -104,11 +104,14 @@ namespace SodaMachine
             }
             else if (enteredFlavor == "orange")
             {
-                if (enteredAmount >= .60 && inventory.oranges.Count > 0)
+                if (enteredAmount >= .35 && inventory.oranges.Count > 0)
                 {
                     Console.WriteLine("Orange Soda Dispensed");
                     inventory.oranges.RemoveAt(0);
-                    inventory.oranges[index] = inventory.oranges[index + 1];
+                    for (int i = 0; i < inventory.oranges.Count; i++)
+                    {
+                        inventory.oranges[i] = inventory.oranges[i + 1];
+                    }
 
                 }
                 else if (enteredAmount < .35)
@@ -139,12 +142,14 @@ namespace SodaMachine
             }
             else if (enteredFlavor == "lemon")
             {
-                if (enteredAmount >= .60 && inventory.lemons.Count > 0)
+                if (enteredAmount >= .06 && inventory.lemons.Count > 0)
                 {
                     Console.WriteLine("Lemon Soda Dispensed");
                     inventory.lemons.RemoveAt(0);
-                    inventory.lemons[index] = inventory.lemons[index + 1];
-
+                    for (int i = 0; i < inventory.oranges.Count; i++)
+                    {
+                        inventory.oranges[i] = inventory.oranges[i+1];
+                    }
                 }
                 else if (enteredAmount < .06)
                 {
@@ -185,6 +190,7 @@ namespace SodaMachine
                 {
                     cashbox.RemoveQuarterFromCashBox(1);
                     enteredAmount = -.25;
+                    Console.WriteLine("The Machine dispensed one quarter.");
                 }
             }
             else if (enteredAmount >= .1)
@@ -193,6 +199,7 @@ namespace SodaMachine
                 {
                     cashbox.RemoveDimeFromCashBox(1);
                     enteredAmount = -.1;
+                    Console.WriteLine("The Machine dispensed one dime.");
                 }
             }
             else if (enteredAmount >= .05)
@@ -201,6 +208,7 @@ namespace SodaMachine
                 {
                     cashbox.RemoveNickelFromCashBox(1);
                     enteredAmount = -.05;
+                    Console.WriteLine("The Machine dispensed one nickel.");
                 }
             }
             else if (enteredAmount >= .01)
@@ -209,6 +217,7 @@ namespace SodaMachine
                 {
                     cashbox.RemovePennyFromCashBox(1);
                     enteredAmount = -.01;
+                    Console.WriteLine("The Machine dispensed one penny.");
                 }
             }
             else
