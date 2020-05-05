@@ -44,5 +44,17 @@ namespace SodaMachine
                 lemons.Add(lemon);
             }
         }
+        public void RemoveGrapeFromInventory(int numberOfGrapes)
+        {
+            if (grapes.Count > 0)
+            {
+                grapes.Count = -1;
+            }
+            else
+            {
+                Console.WriteLine("No Grape Soda Left.");   
+            }
+
+        }
     }
 }

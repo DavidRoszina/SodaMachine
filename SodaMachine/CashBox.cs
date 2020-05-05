@@ -21,8 +21,6 @@ namespace SodaMachine
             dimes = new List<Dime>();
             nickels = new List<Nickel>();
             pennies = new List<Penny>();
-            
-
         }
         //member methods
         public void AddQuarterToCashBox(int numberOfQuarters)
@@ -55,6 +53,38 @@ namespace SodaMachine
             {
                 Penny penny = new Penny();
                 pennies.Add(penny);
+            }
+        }
+        public void RemoveQuarterFromCashBox(int numberOfQuarters)
+        {
+            for (int i = 0; i < numberOfQuarters; i--)
+            {
+                Quarter quarter = new Quarter();
+                quarters.Remove(quarter);
+            }
+        }
+        public void RemoveDimeFromCashBox(int numberOfDimes)
+        {
+            for (int i = 0; i < numberOfDimes; i--)
+            {
+                Dime dime = new Dime();
+                dimes.Remove(dime);
+            }
+        }
+        public void RemoveNickelFromCashBox(int numberOfNickels)
+        {
+            for (int i = 0; i < numberOfNickels; i--)
+            {
+                Nickel nickel = new Nickel();
+                nickels.Remove(nickel);
+            }
+        }
+        public void RemovePennyFromCashBox(int numberOfPennies)
+        {
+            for (int i = 0; i < numberOfPennies; i--)
+            {
+                Penny penny = new Penny();
+                pennies.Remove(penny);
             }
         }
     }
