@@ -6,7 +6,17 @@ using System.Threading.Tasks;
 
 namespace SodaMachine
 {
-    class LemonSoda
+    class LemonSoda : Can
     {
+        //member variables
+
+        //constructor
+        public LemonSoda()
+        {
+            price = .06;
+            string color = "Yellow";
+            string flavor = "Lemon";
+    }
+        //methods
     }
 }
