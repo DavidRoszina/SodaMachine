@@ -9,12 +9,9 @@ namespace SodaMachine
     public class Penny
     {
         //member variables
-        public double worth;
+        public static readonly int WORTH = 1;
         //constructor
-        public Penny()
-        {
-            this.worth = .01;
-        }
+        
         //methods
     }
 }

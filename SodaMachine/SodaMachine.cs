@@ -4,15 +4,20 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections;
+using System.Runtime.Remoting.Messaging;
+using System.Diagnostics;
 
 namespace SodaMachine
 {
     class SodaMachine
     {
         //member variables
-        public double enteredAmount;
+        public int enteredAmount;
+        private int sumOfChange;
         public Inventory inventory;
         public CashBox cashbox;
+        
         //constructor
         public SodaMachine()
         {
@@ -21,211 +26,237 @@ namespace SodaMachine
             inventory.AddOrangeToInventory(20);
             inventory.AddLemonToInventory(20);
             cashbox = new CashBox();
-            cashbox.AddQuarterToCashBox(20);
-            cashbox.AddDimeToCashBox(10);
-            cashbox.AddNickelToCashBox(20);
-            cashbox.AddPennyToCashBox(50);
-            enteredAmount = 0.00;
+            cashbox.AddQuarterToCashBox(0);
+            cashbox.AddDimeToCashBox(0);
+            cashbox.AddNickelToCashBox(2);
+            cashbox.AddPennyToCashBox(4);
+            enteredAmount = 0;
             
+
         }
         //methods
-        
-        public void EnterCoins()
+
+        public bool EnterCoins()
         {
             Console.WriteLine("Enter a quarter, dime, nickel, penny or done:\n");
             string enteredCoin = Console.ReadLine();
             if (enteredCoin == "quarter")
             {
                 cashbox.AddQuarterToCashBox(1);
-                enteredAmount =  +.25;
+                enteredAmount = (enteredAmount + 25);
+                Console.WriteLine("You have entered " + enteredAmount);
+
             }
             else if (enteredCoin == "dime")
             {
                 cashbox.AddDimeToCashBox(1);
-                enteredAmount = +.1;
+                enteredAmount = (enteredAmount + 10);
+                Console.WriteLine("You have entered " + enteredAmount);
+
             }
             else if (enteredCoin == "nickel")
             {
                 cashbox.AddNickelToCashBox(1);
-                enteredAmount = +.05;
+                enteredAmount = (enteredAmount + 5);
+                Console.WriteLine("You have entered " + enteredAmount);
+
             }
             else if (enteredCoin == "penny")
             {
                 cashbox.AddPennyToCashBox(1);
-                enteredAmount = +.01;
+                enteredAmount = (enteredAmount + 1);
+                Console.WriteLine("You have entered " + enteredAmount);
+
             }
             else if (enteredCoin == "done")
             {
-                return;
+                Console.WriteLine("You have entered " + enteredAmount);
+                return false;
             }
-            else EnterCoins();
+            return true;
         }
-        public void DispenseSoda()
+        public bool DispenseSoda()
         {
             Console.WriteLine("Please select grape, orange, or lemon\n");
             string enteredFlavor = Console.ReadLine();
             if (enteredFlavor == "grape")
             {
-                if (enteredAmount >= .60 && inventory.grapes.Count > 0)
+                if (enteredAmount < GrapeSoda.PRICE)
                 {
-                    Console.WriteLine("Grape Soda Dispensed");
-                    inventory.grapes.RemoveAt(0);
-                    for (int i = 0; i < inventory.grapes.Count; i++)
-                    {
-                        inventory.grapes[i] = inventory.grapes[i + 1];
-                    }
 
-                }
-                else if (enteredAmount < .60)
-                {
                     Console.WriteLine("Insufficient funds. Would you like to make another selection? y/n\n");
-                    if (Console.ReadLine() == "y")
+                    if (Console.ReadLine() == "n")
                     {
-                        DispenseSoda();
-                    }
-                    else if (Console.ReadLine() == "n")
-                    {
-                        ReturnChange();
+                        return false;
                     }
                 }
                 else if (inventory.grapes.Count == 0)
                 {
+
                     Console.WriteLine("Grape Soda out of stock. Would you like to make another selection> y/n\n");
-                    if (Console.ReadLine() == "y")
+                    if (Console.ReadLine() == "n")
                     {
-                        DispenseSoda();
-                    }
-                    else if (Console.ReadLine() == "n")
-                    {
-                        ReturnChange();
+
+                        return false;
                     }
                 }
-                else DispenseSoda();
+                else
+                {
+                    if (CanMakeChange(GrapeSoda.PRICE) == true)
+                    { 
+                        inventory.grapes.RemoveAt(0);
+                        enteredAmount = (enteredAmount - GrapeSoda.PRICE);
+                        Console.WriteLine("Grape Soda Dispensed");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Insufficient change in machine");
+                        
+                    }
+                    ReturnChange(cashbox);
+
+                    Console.WriteLine("Would you like to make another transaction> y/n\n");
+                    if (Console.ReadLine() == "n")
+                    {
+                        return false;
+                    }
+                }
             }
             else if (enteredFlavor == "orange")
             {
-                if (enteredAmount >= .35 && inventory.oranges.Count > 0)
+                if (enteredAmount < OrangeSoda.PRICE)
                 {
-                    Console.WriteLine("Orange Soda Dispensed");
-                    inventory.oranges.RemoveAt(0);
-                    for (int i = 0; i < inventory.oranges.Count; i++)
-                    {
-                        inventory.oranges[i] = inventory.oranges[i + 1];
-                    }
-
-                }
-                else if (enteredAmount < .35)
-                {
+                    
                     Console.WriteLine("Insufficient funds. Would you like to make another selection? y/n\n");
-                    if (Console.ReadLine() == "y")
+                    if (Console.ReadLine() == "n")
                     {
-                        DispenseSoda();
-                    }
-                    else if (Console.ReadLine() == "n")
-                    {
-                        ReturnChange();
+                        return false;
                     }
                 }
                 else if (inventory.oranges.Count == 0)
                 {
+                    
                     Console.WriteLine("Orange Soda out of stock. Would you like to make another selection> y/n\n");
-                    if (Console.ReadLine() == "y")
+                    if (Console.ReadLine() == "n")
                     {
-                        DispenseSoda();
-                    }
-                    else if (Console.ReadLine() == "n")
-                    {
-                        ReturnChange();
+                        return false;
                     }
                 }
-                else DispenseSoda();
+                else
+                {
+                    if (CanMakeChange(OrangeSoda.PRICE) == true)
+                    {
+                        inventory.oranges.RemoveAt(0);
+                        enteredAmount = (enteredAmount - OrangeSoda.PRICE);
+                        Console.WriteLine("Orange Soda Dispensed");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Insufficient change in machine");
+
+                    }
+                    ReturnChange(cashbox);
+                    Console.WriteLine("Would you like to make another transaction> y/n\n");
+                    if (Console.ReadLine() == "n")
+                    {
+                        return false;
+                    }
+                }
             }
             else if (enteredFlavor == "lemon")
             {
-                if (enteredAmount >= .06 && inventory.lemons.Count > 0)
+                if (enteredAmount < LemonSoda.PRICE)
                 {
-                    Console.WriteLine("Lemon Soda Dispensed");
-                    inventory.lemons.RemoveAt(0);
-                    for (int i = 0; i < inventory.oranges.Count; i++)
-                    {
-                        inventory.oranges[i] = inventory.oranges[i+1];
-                    }
-                }
-                else if (enteredAmount < .06)
-                {
+                    
                     Console.WriteLine("Insufficient funds. Would you like to make another selection? y/n\n");
-                    if (Console.ReadLine() == "y")
+                    if (Console.ReadLine() == "n")
                     {
-                        DispenseSoda();
-                    }
-                    else if (Console.ReadLine() == "n")
-                    {
-                        ReturnChange();
+                        return false;
                     }
                 }
                 else if (inventory.lemons.Count == 0)
                 {
+                    
                     Console.WriteLine("Lemon Soda out of stock. Would you like to make another selection> y/n\n");
-                    if (Console.ReadLine() == "y")
+                    if (Console.ReadLine() == "n")
                     {
-                        DispenseSoda();
-                    }
-                    else if (Console.ReadLine() == "n")
-                    {
-                        ReturnChange();
+                        return false;
                     }
                 }
-                else DispenseSoda();
+                else
+                {
+                    if (CanMakeChange(LemonSoda.PRICE) == true)
+                    {
+                        inventory.lemons.RemoveAt(0);
+                        enteredAmount = (enteredAmount - LemonSoda.PRICE);
+                        Console.WriteLine("Lemon Soda Dispensed");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Insufficient change in machine");
+
+                    }
+                    ReturnChange(cashbox);
+                    Console.WriteLine("Would you like to make another transaction> y/n\n");
+                    if (Console.ReadLine() == "n")
+                    {
+                        return false;
+                    }
+                }
             }
-            else
-            {
-                DispenseSoda();
-            }
+            return true;
         }
-        public void ReturnChange()
+        public bool CanMakeChange(int cost)
         {
-            if (enteredAmount >= .25)
-            {
-                while (enteredAmount >= .25)
-                {
-                    cashbox.RemoveQuarterFromCashBox(1);
-                    enteredAmount = -.25;
-                    Console.WriteLine("The Machine dispensed one quarter.");
-                }
-            }
-            else if (enteredAmount >= .1)
-            {
-                while (enteredAmount >= .1)
-                {
-                    cashbox.RemoveDimeFromCashBox(1);
-                    enteredAmount = -.1;
-                    Console.WriteLine("The Machine dispensed one dime.");
-                }
-            }
-            else if (enteredAmount >= .05)
-            {
-                while (enteredAmount >= .05)
-                {
-                    cashbox.RemoveNickelFromCashBox(1);
-                    enteredAmount = -.05;
-                    Console.WriteLine("The Machine dispensed one nickel.");
-                }
-            }
-            else if (enteredAmount >= .01)
-            {
-                while (enteredAmount >= .01)
-                {
-                    cashbox.RemovePennyFromCashBox(1);
-                    enteredAmount = -.01;
-                    Console.WriteLine("The Machine dispensed one penny.");
-                }
-            }
-            else
-            {
-                return;
-            }
-
-
+            enteredAmount -= cost;
+            CashBox tempCashBox = new CashBox(cashbox);
+            bool result = ReturnChange(tempCashBox);
+            enteredAmount += cost;
+            return result;
+            
         }
+        public bool ReturnChange(CashBox box)
+        {
+            while (enteredAmount > 0)
+            {
+                if (enteredAmount >= 25 && cashbox.quarters.Count > 0)
+                {
+
+                    Console.WriteLine("The Machine dispensed one quarter.");
+                    cashbox.RemoveQuarterFromCashBox(1);
+                    enteredAmount = (enteredAmount - Quarter.WORTH);
+
+                }
+                else if (enteredAmount >= 10 && cashbox.dimes.Count > 0)
+                {
+
+                    Console.WriteLine("The Machine dispensed one dime.");
+                    cashbox.RemoveDimeFromCashBox(1);
+                    enteredAmount = (enteredAmount - Dime.WORTH);
+
+                }
+                else if (enteredAmount >= 5 && cashbox.nickels.Count > 0)
+                {
+
+                    Console.WriteLine("The Machine dispensed one nickel.");
+                    cashbox.RemoveNickelFromCashBox(1);
+                    enteredAmount = (enteredAmount - Nickel.WORTH);
+
+                }
+                else if (enteredAmount >= 1 && cashbox.pennies.Count > 0)
+                {
+
+                    Console.WriteLine("The Machine dispensed one penny.");
+                    cashbox.RemovePennyFromCashBox(1);
+                    enteredAmount = (enteredAmount - Penny.WORTH);
+
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            return true; 
+        }  
     }
 }

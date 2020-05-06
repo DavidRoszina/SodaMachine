@@ -9,14 +9,9 @@ namespace SodaMachine
     public class GrapeSoda : Can
     {
         //member variables
-        public double price;
+        public static readonly int PRICE = 60;
         //constructor
-        public GrapeSoda()
-        {
-            price = .60;
-            string color = "purple";
-            string flavor = "Grape";
-    }
+        
         //methods
     }
 }

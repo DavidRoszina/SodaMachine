@@ -9,14 +9,9 @@ namespace SodaMachine
     public class OrangeSoda : Can
     {
         //member variables
-        
+        public static readonly int PRICE = 35;
         //constructor
-        public OrangeSoda()
-        {
-            price = .35;
-            string color = "Orange";
-            string flavor = "Orange";
-    }
+        
         //methods
     }
 }

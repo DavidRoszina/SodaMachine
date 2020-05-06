@@ -9,12 +9,9 @@ namespace SodaMachine
     public class Dime
     {
         //member variables
-        public double worth;
+        public static readonly int WORTH = 10;
         //constructor
-        public Dime()
-        {
-            this.worth = .1;
-        }
+        
         //methods
     }
 }

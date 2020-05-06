@@ -51,6 +51,7 @@ namespace SodaMachine
             {
                 GrapeSoda grape = new GrapeSoda();
                 grapes.Remove(grape);
+                
             }
             else
             {

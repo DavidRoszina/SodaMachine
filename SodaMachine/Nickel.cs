@@ -9,12 +9,9 @@ namespace SodaMachine
     public class Nickel
     {
         //member variables
-        public double worth;
+        public static readonly int WORTH = 5;
         //constructor
-        public Nickel()
-        {
-            this.worth = .05;
-        }
+        
         //methods
     }
 }

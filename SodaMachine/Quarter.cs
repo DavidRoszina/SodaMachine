@@ -9,12 +9,9 @@ namespace SodaMachine
     public class Quarter
     {
         //member variables
-        public double worth;
+        public static readonly int WORTH = 25;
         //constructor
-        public Quarter()
-        {
-            this.worth = .25;
-        }
+        
         //methods
     }
 }

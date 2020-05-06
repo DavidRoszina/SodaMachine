@@ -9,12 +9,9 @@ namespace SodaMachine
     public abstract class Can
     {
         //member variables
-        public double price;
+        public int price;
         //constructor
-        static Can()
-        {
-
-        }
+        
         //member methods
 
     }

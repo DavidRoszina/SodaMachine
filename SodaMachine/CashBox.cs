@@ -22,6 +22,17 @@ namespace SodaMachine
             nickels = new List<Nickel>();
             pennies = new List<Penny>();
         }
+        public CashBox(CashBox src)
+        {
+            quarters = new List<Quarter>();
+            dimes = new List<Dime>();
+            nickels = new List<Nickel>();
+            pennies = new List<Penny>();
+            AddQuarterToCashBox(src.quarters.Count);
+            AddDimeToCashBox(src.dimes.Count);
+            AddNickelToCashBox(src.nickels.Count);
+            AddPennyToCashBox(src.pennies.Count);
+        }
         //member methods
         public void AddQuarterToCashBox(int numberOfQuarters)
         {
@@ -57,34 +68,35 @@ namespace SodaMachine
         }
         public void RemoveQuarterFromCashBox(int numberOfQuarters)
         {
-            for (int i = 0; i < numberOfQuarters; i--)
+            for (int i = 0; i < numberOfQuarters; i++)
             {
-                Quarter quarter = new Quarter();
-                quarters.Remove(quarter);
+                
+                quarters.RemoveAt(0);
             }
         }
+        
         public void RemoveDimeFromCashBox(int numberOfDimes)
         {
-            for (int i = 0; i < numberOfDimes; i--)
+            for (int i = 0; i < numberOfDimes; i++)
             {
-                Dime dime = new Dime();
-                dimes.Remove(dime);
+             
+                dimes.RemoveAt(0);
             }
         }
         public void RemoveNickelFromCashBox(int numberOfNickels)
         {
-            for (int i = 0; i < numberOfNickels; i--)
+            for (int i = 0; i < numberOfNickels; i++)
             {
-                Nickel nickel = new Nickel();
-                nickels.Remove(nickel);
+             
+                nickels.RemoveAt(0);
             }
         }
         public void RemovePennyFromCashBox(int numberOfPennies)
         {
-            for (int i = 0; i < numberOfPennies; i--)
+            for (int i = 0; i < numberOfPennies; i++)
             {
-                Penny penny = new Penny();
-                pennies.Remove(penny);
+            
+                pennies.RemoveAt(0);
             }
         }
     }
