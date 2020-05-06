@@ -22,14 +22,12 @@ namespace SodaMachine
             Console.WriteLine("Soda List: Grape, Orange, Lemon");
             Console.WriteLine("Grape - $.60, Orange - $.35, Lemon - $.06");
             Console.WriteLine("Please enter your money and then make a selection");
-            //while (machine.EnterCoins() == true);
-            //while (machine.DispenseSoda() == true);
             do
             {
                 while (machine.EnterCoins() == true);
             }
             while (machine.DispenseSoda() == true);
-            //machine.ReturnChange(machine.cashbox);
+            machine.ReturnChange(machine.cashbox, true);
             Console.ReadLine();
         }
     }

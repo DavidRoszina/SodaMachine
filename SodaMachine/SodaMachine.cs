@@ -26,10 +26,10 @@ namespace SodaMachine
             inventory.AddOrangeToInventory(20);
             inventory.AddLemonToInventory(20);
             cashbox = new CashBox();
-            cashbox.AddQuarterToCashBox(0);
-            cashbox.AddDimeToCashBox(0);
-            cashbox.AddNickelToCashBox(2);
-            cashbox.AddPennyToCashBox(4);
+            cashbox.AddQuarterToCashBox(20);
+            cashbox.AddDimeToCashBox(10);
+            cashbox.AddNickelToCashBox(20);
+            cashbox.AddPennyToCashBox(50);
             enteredAmount = 0;
             
 
@@ -43,28 +43,28 @@ namespace SodaMachine
             if (enteredCoin == "quarter")
             {
                 cashbox.AddQuarterToCashBox(1);
-                enteredAmount = (enteredAmount + 25);
+                enteredAmount = (enteredAmount + Quarter.WORTH);
                 Console.WriteLine("You have entered " + enteredAmount);
 
             }
             else if (enteredCoin == "dime")
             {
                 cashbox.AddDimeToCashBox(1);
-                enteredAmount = (enteredAmount + 10);
+                enteredAmount = (enteredAmount + Dime.WORTH);
                 Console.WriteLine("You have entered " + enteredAmount);
 
             }
             else if (enteredCoin == "nickel")
             {
                 cashbox.AddNickelToCashBox(1);
-                enteredAmount = (enteredAmount + 5);
+                enteredAmount = (enteredAmount + Nickel.WORTH);
                 Console.WriteLine("You have entered " + enteredAmount);
 
             }
             else if (enteredCoin == "penny")
             {
                 cashbox.AddPennyToCashBox(1);
-                enteredAmount = (enteredAmount + 1);
+                enteredAmount = (enteredAmount + Penny.WORTH);
                 Console.WriteLine("You have entered " + enteredAmount);
 
             }
@@ -113,7 +113,7 @@ namespace SodaMachine
                         Console.WriteLine("Insufficient change in machine");
                         
                     }
-                    ReturnChange(cashbox);
+                    ReturnChange(cashbox, true);
 
                     Console.WriteLine("Would you like to make another transaction> y/n\n");
                     if (Console.ReadLine() == "n")
@@ -155,7 +155,7 @@ namespace SodaMachine
                         Console.WriteLine("Insufficient change in machine");
 
                     }
-                    ReturnChange(cashbox);
+                    ReturnChange(cashbox, true);
                     Console.WriteLine("Would you like to make another transaction> y/n\n");
                     if (Console.ReadLine() == "n")
                     {
@@ -196,7 +196,7 @@ namespace SodaMachine
                         Console.WriteLine("Insufficient change in machine");
 
                     }
-                    ReturnChange(cashbox);
+                    ReturnChange(cashbox, true);
                     Console.WriteLine("Would you like to make another transaction> y/n\n");
                     if (Console.ReadLine() == "n")
                     {
@@ -208,21 +208,21 @@ namespace SodaMachine
         }
         public bool CanMakeChange(int cost)
         {
+            int priorAmount = enteredAmount;
             enteredAmount -= cost;
             CashBox tempCashBox = new CashBox(cashbox);
-            bool result = ReturnChange(tempCashBox);
-            enteredAmount += cost;
+            bool result = ReturnChange(tempCashBox, false);
+            enteredAmount = priorAmount;
             return result;
-            
         }
-        public bool ReturnChange(CashBox box)
+        public bool ReturnChange(CashBox box, bool printText)
         {
             while (enteredAmount > 0)
             {
                 if (enteredAmount >= 25 && cashbox.quarters.Count > 0)
                 {
 
-                    Console.WriteLine("The Machine dispensed one quarter.");
+                    if (printText) Console.WriteLine("The Machine dispensed one quarter.");
                     cashbox.RemoveQuarterFromCashBox(1);
                     enteredAmount = (enteredAmount - Quarter.WORTH);
 
@@ -230,7 +230,7 @@ namespace SodaMachine
                 else if (enteredAmount >= 10 && cashbox.dimes.Count > 0)
                 {
 
-                    Console.WriteLine("The Machine dispensed one dime.");
+                    if (printText) Console.WriteLine("The Machine dispensed one dime.");
                     cashbox.RemoveDimeFromCashBox(1);
                     enteredAmount = (enteredAmount - Dime.WORTH);
 
@@ -238,7 +238,7 @@ namespace SodaMachine
                 else if (enteredAmount >= 5 && cashbox.nickels.Count > 0)
                 {
 
-                    Console.WriteLine("The Machine dispensed one nickel.");
+                    if (printText) Console.WriteLine("The Machine dispensed one nickel.");
                     cashbox.RemoveNickelFromCashBox(1);
                     enteredAmount = (enteredAmount - Nickel.WORTH);
 
@@ -246,7 +246,7 @@ namespace SodaMachine
                 else if (enteredAmount >= 1 && cashbox.pennies.Count > 0)
                 {
 
-                    Console.WriteLine("The Machine dispensed one penny.");
+                    if (printText) Console.WriteLine("The Machine dispensed one penny.");
                     cashbox.RemovePennyFromCashBox(1);
                     enteredAmount = (enteredAmount - Penny.WORTH);
 
@@ -256,7 +256,7 @@ namespace SodaMachine
                     return false;
                 }
             }
-            return true; 
-        }  
+            return true;
+        }
     }
 }
